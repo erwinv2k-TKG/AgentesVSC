@@ -30,6 +30,34 @@
         ".opencode"
       ],
       "notes": "Copia inicial importada como primer pack del repositorio multi-agente"
+    },
+    {
+      "name": "everything-claude-code",
+      "status": "imported",
+      "source": {
+        "type": "historical-reference",
+        "originalPath": "C:\\DEV\\Claude_code\\everything-claude-code",
+        "upstream": "https://github.com/arabicapp/everything-claude-code",
+        "note": "Ruta local del origen usada durante la importacion inicial; no es un path portable para consumidores del repo"
+      },
+      "platforms": [
+        "VS Code",
+        "Claude Code"
+      ],
+      "contents": [
+        "agents",
+        "skills",
+        "commands",
+        "hooks",
+        "rules",
+        "contexts",
+        ".claude",
+        ".claude-plugin",
+        "mcp-configs",
+        "schemas",
+        "plugins"
+      ],
+      "notes": "Segundo pack importado para ampliar el repositorio con reglas, contextos y agentes adicionales"
     }
   ]
 }

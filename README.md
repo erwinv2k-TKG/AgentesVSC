@@ -37,6 +37,9 @@ AgentesVSC/
 ## Packs actuales
 
 1. `superpowers`: copia base tomada desde `C:\DEV\Claude_code\superpowers`.
+2. `everything-claude-code`: copia base tomada desde `C:\DEV\Claude_code\everything-claude-code`.
+
+Nota de convivencia: al usar multiples packs al mismo tiempo puede haber nombres de agentes repetidos (por ejemplo `code-reviewer`). En esos casos conviene definir una prioridad por pack o crear variantes derivadas con nombres unicos.
 
 ## Criterio de organizacion
 
@@ -73,4 +76,4 @@ Proceso recomendado:
 
 `AgentesVSC` es un repositorio contenedor. La compatibilidad final con cada plataforma depende de los manifests y del mecanismo de carga de esa plataforma.
 
-La primera importacion hecha aqui es `superpowers`, pero la estructura ya queda preparada para sumar varios packs de agentes modificados.
+Las primeras importaciones hechas aqui son `superpowers` y `everything-claude-code`, y la estructura queda preparada para seguir sumando packs de agentes modificados.
