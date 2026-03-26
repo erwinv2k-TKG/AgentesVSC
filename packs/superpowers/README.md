@@ -82,6 +82,12 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 
 **Detailed docs:** [docs/README.opencode.md](docs/README.opencode.md)
 
+### VS Code (Copilot Customizations)
+
+This repository includes a VS Code adaptation kit based on instructions, prompts, and a review agent.
+
+**Detailed docs:** [docs/README.vscode.md](docs/README.vscode.md)
+
 ### Gemini CLI
 
 ```bash
