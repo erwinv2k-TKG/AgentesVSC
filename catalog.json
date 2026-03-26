@@ -1,0 +1,35 @@
+{
+  "repo": "AgentesVSC",
+  "description": "Catalogo de packs de agentes y skills para VS Code y herramientas compatibles",
+  "packs": [
+    {
+      "name": "superpowers",
+      "status": "imported",
+      "source": {
+        "type": "historical-reference",
+        "originalPath": "C:\\DEV\\Claude_code\\superpowers",
+        "upstream": "https://github.com/obra/superpowers",
+        "note": "Ruta local del origen usada durante la importacion inicial; no es un path portable para consumidores del repo"
+      },
+      "platforms": [
+        "VS Code",
+        "Cursor",
+        "Claude Code",
+        "Codex",
+        "OpenCode",
+        "Gemini"
+      ],
+      "contents": [
+        "agents",
+        "skills",
+        "commands",
+        "hooks",
+        ".claude-plugin",
+        ".cursor-plugin",
+        ".codex",
+        ".opencode"
+      ],
+      "notes": "Copia inicial importada como primer pack del repositorio multi-agente"
+    }
+  ]
+}
