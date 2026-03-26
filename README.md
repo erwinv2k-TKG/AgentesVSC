@@ -3,6 +3,7 @@
 Repositorio base para almacenar y versionar multiples packs de agentes, skills, comandos y hooks orientados a VS Code y herramientas compatibles.
 
 La idea no es guardar un solo agente suelto, sino una coleccion organizada de packs reutilizables y modificables. Cada pack puede venir de una fuente distinta y mantener sus propios agentes, skills, manifests y notas de integracion.
+En cada carpeta esta toda la informacion del fabricante muchos son modificados para ser utilizados en VScode pero pueden ser utiles
 
 ## Objetivo
 
