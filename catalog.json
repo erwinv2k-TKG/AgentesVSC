@@ -58,6 +58,27 @@
         "plugins"
       ],
       "notes": "Segundo pack importado para ampliar el repositorio con reglas, contextos y agentes adicionales"
+    },
+    {
+      "name": "vscode-local-overrides",
+      "status": "active",
+      "source": {
+        "type": "local-derivatives",
+        "originalPath": "N/A",
+        "upstream": "N/A",
+        "note": "Pack local para mantener versiones derivadas y modificadas para VS Code"
+      },
+      "platforms": [
+        "VS Code"
+      ],
+      "contents": [
+        "agents",
+        "skills",
+        "commands",
+        "hooks",
+        "docs"
+      ],
+      "notes": "Contenedor local para overrides y variaciones operativas"
     }
   ]
 }

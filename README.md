@@ -38,6 +38,7 @@ AgentesVSC/
 
 1. `superpowers`: copia base tomada desde `C:\DEV\Claude_code\superpowers`.
 2. `everything-claude-code`: copia base tomada desde `C:\DEV\Claude_code\everything-claude-code`.
+3. `vscode-local-overrides`: pack local para copias derivadas y modificaciones orientadas a VS Code.
 
 Nota de convivencia: al usar multiples packs al mismo tiempo puede haber nombres de agentes repetidos (por ejemplo `code-reviewer`). En esos casos conviene definir una prioridad por pack o crear variantes derivadas con nombres unicos.
 
@@ -71,6 +72,16 @@ Proceso recomendado:
 3. agregar `PACK_INFO.md` con origen, fecha y notas de modificacion
 4. actualizar `catalog.json`
 5. documentar cualquier ajuste especifico para VS Code o la herramienta objetivo
+
+## Flujo para copias modificables en VS Code
+
+Para mantener una estrategia limpia de cambios:
+
+1. no modificar directamente los packs importados cuando el ajuste sea local
+2. copiar el archivo original hacia `packs/vscode-local-overrides/`
+3. renombrar la derivacion para evitar colisiones de nombres
+4. documentar el cambio en `packs/vscode-local-overrides/docs/CHANGELOG_LOCAL.md`
+5. validar en VS Code y, si aplica, promover luego a un pack propio
 
 ## Notas
 
