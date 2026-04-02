@@ -7,7 +7,7 @@
       <!-- 中间步骤指示器 -->
       <div class="nav-center">
         <div class="step-badge">STEP 01</div>
-        <div class="step-name">图谱构建</div>
+        <div class="step-name">Construccion de grafo</div>
       </div>
 
       <div class="nav-status">
@@ -171,10 +171,10 @@
               <div class="loading-ring"></div>
               <div class="loading-ring"></div>
             </div>
-            <p class="loading-text">图谱数据加载中...</p>
+            <p class="loading-text">图谱数据Cargando...</p>
           </div>
           
-          <!-- 等待构建 -->
+          <!-- En espera构建 -->
           <div v-else-if="currentPhase < 1" class="graph-waiting">
             <div class="waiting-icon">
               <svg viewBox="0 0 100 100" class="network-icon">
@@ -189,7 +189,7 @@
                 <line x1="50" y1="72" x2="74" y2="66" stroke="#000" stroke-width="1"/>
               </svg>
             </div>
-            <p class="waiting-text">等待本体生成</p>
+            <p class="waiting-text">En espera本体生成</p>
             <p class="waiting-hint">生成完成后将自动开始构建图谱</p>
           </div>
           
@@ -200,7 +200,7 @@
               <div class="loading-ring"></div>
               <div class="loading-ring"></div>
             </div>
-            <p class="waiting-text">图谱构建中</p>
+            <p class="waiting-text">Construccion de grafo中</p>
             <p class="waiting-hint">数据即将显示...</p>
           </div>
           
@@ -293,19 +293,19 @@
                 </div>
               </div>
               
-              <!-- 等待状态 -->
+              <!-- En espera状态 -->
               <div class="detail-section waiting-state" v-if="!projectData?.ontology && currentPhase === 0 && !ontologyProgress">
-                <div class="waiting-hint">等待本体生成...</div>
+                <div class="waiting-hint">En espera本体生成...</div>
               </div>
             </div>
           </div>
 
-          <!-- 阶段2: 图谱构建 -->
+          <!-- 阶段2: Construccion de grafo -->
           <div class="process-phase" :class="{ 'active': currentPhase === 1, 'completed': currentPhase > 1 }">
             <div class="phase-header">
               <span class="phase-num">02</span>
               <div class="phase-info">
-                <div class="phase-title">图谱构建</div>
+                <div class="phase-title">Construccion de grafo</div>
                 <div class="phase-api">/api/graph/build</div>
               </div>
               <span class="phase-status" :class="getPhaseStatusClass(1)">
@@ -321,9 +321,9 @@
                 </div>
               </div>
               
-              <!-- 等待本体完成 -->
+              <!-- En espera本体完成 -->
               <div class="detail-section waiting-state" v-if="currentPhase < 1">
-                <div class="waiting-hint">等待本体生成完成...</div>
+                <div class="waiting-hint">En espera本体生成完成...</div>
               </div>
               
               <!-- 构建进度 -->
@@ -375,7 +375,7 @@
           <!-- 下一步按钮 -->
           <div class="next-step-section" v-if="currentPhase >= 2">
             <button class="next-step-btn" @click="goToNextStep" :disabled="currentPhase < 2">
-              进入环境搭建
+              进入Configuracion de entorno
               <span class="btn-arrow">→</span>
             </button>
           </div>
@@ -432,7 +432,7 @@ const projectData = ref(null)
 const graphData = ref(null)
 const buildProgress = ref(null)
 const ontologyProgress = ref(null) // 本体生成进度
-const currentPhase = ref(-1) // -1: 上传中, 0: 本体生成中, 1: 图谱构建, 2: 完成
+const currentPhase = ref(-1) // -1: 上传中, 0: 本体Generando, 1: Construccion de grafo, 2: 完成
 const selectedItem = ref(null) // 选中的节点或边
 const isFullScreen = ref(false)
 
@@ -440,7 +440,7 @@ const isFullScreen = ref(false)
 const graphContainer = ref(null)
 const graphSvg = ref(null)
 
-// 轮询定时器
+// rondas询定时器
 let pollTimer = null
 
 // 计算属性
@@ -453,8 +453,8 @@ const statusClass = computed(() => {
 const statusText = computed(() => {
   if (error.value) return '构建失败'
   if (currentPhase.value >= 2) return '构建完成'
-  if (currentPhase.value === 1) return '图谱构建中'
-  if (currentPhase.value === 0) return '本体生成中'
+  if (currentPhase.value === 1) return 'Construccion de grafo中'
+  if (currentPhase.value === 0) return '本体Generando'
   return '初始化中'
 })
 
@@ -481,8 +481,8 @@ const goHome = () => {
 }
 
 const goToNextStep = () => {
-  // TODO: 进入环境搭建步骤
-  alert('环境搭建功能开发中...')
+  // TODO: 进入Configuracion de entorno步骤
+  alert('Configuracion de entorno功能开发中...')
 }
 
 const toggleFullScreen = () => {
@@ -540,14 +540,14 @@ const getPhaseStatusClass = (phase) => {
 }
 
 const getPhaseStatusText = (phase) => {
-  if (currentPhase.value > phase) return '已完成'
+  if (currentPhase.value > phase) return 'Completado'
   if (currentPhase.value === phase) {
     if (phase === 1 && buildProgress.value) {
       return `${buildProgress.value.progress}%`
     }
-    return '进行中'
+    return 'En progreso'
   }
-  return '等待中'
+  return 'En espera中'
 }
 
 // 初始化 - 处理新建项目或加载已有项目
@@ -604,7 +604,7 @@ const handleNewProject = async () => {
       
       ontologyProgress.value = null
       
-      // 自动开始图谱构建
+      // 自动开始Construccion de grafo
       await startBuildGraph()
     } else {
       error.value = response.error || '本体生成失败'
@@ -627,18 +627,18 @@ const loadProject = async () => {
       projectData.value = response.data
       updatePhaseByStatus(response.data.status)
       
-      // 自动开始图谱构建
+      // 自动开始Construccion de grafo
       if (response.data.status === 'ontology_generated' && !response.data.graph_id) {
         await startBuildGraph()
       }
       
-      // 继续轮询构建中的任务
+      // 继续rondas询构建中的任务
       if (response.data.status === 'graph_building' && response.data.graph_build_task_id) {
         currentPhase.value = 1
         startPollingTask(response.data.graph_build_task_id)
       }
       
-      // 加载已完成的图谱
+      // 加载Completado的图谱
       if (response.data.status === 'graph_completed' && response.data.graph_id) {
         currentPhase.value = 2
         await loadGraph(response.data.graph_id)
@@ -679,37 +679,37 @@ const startBuildGraph = async () => {
     // 设置初始进度
     buildProgress.value = {
       progress: 0,
-      message: '正在启动图谱构建...'
+      message: '正在启动Construccion de grafo...'
     }
     
     const response = await buildGraph({ project_id: currentProjectId.value })
     
     if (response.success) {
-      buildProgress.value.message = '图谱构建任务已启动...'
+      buildProgress.value.message = 'Construccion de grafo任务已启动...'
       
-      // 保存 task_id 用于轮询
+      // 保存 task_id 用于rondas询
       const taskId = response.data.task_id
       
-      // 启动图谱数据轮询（独立于任务状态轮询）
+      // 启动图谱数据rondas询（独立于任务状态rondas询）
       startGraphPolling()
       
-      // 启动任务状态轮询
+      // 启动任务状态rondas询
       startPollingTask(taskId)
     } else {
-      error.value = response.error || '启动图谱构建失败'
+      error.value = response.error || '启动Construccion de grafo失败'
       buildProgress.value = null
     }
   } catch (err) {
     console.error('Build graph error:', err)
-    error.value = '启动图谱构建失败: ' + (err.message || '未知错误')
+    error.value = '启动Construccion de grafo失败: ' + (err.message || '未知错误')
     buildProgress.value = null
   }
 }
 
-// 图谱数据轮询定时器
+// 图谱数据rondas询定时器
 let graphPollTimer = null
 
-// 启动图谱数据轮询
+// 启动图谱数据rondas询
 const startGraphPolling = () => {
   // 立即获取一次
   fetchGraphData()
@@ -727,7 +727,7 @@ const refreshGraph = async () => {
   graphLoading.value = false
 }
 
-// 停止图谱数据轮询
+// 停止图谱数据rondas询
 const stopGraphPolling = () => {
   if (graphPollTimer) {
     clearInterval(graphPollTimer)
@@ -768,12 +768,12 @@ const fetchGraphData = async () => {
   }
 }
 
-// 轮询任务状态
+// rondas询任务状态
 const startPollingTask = (taskId) => {
   // 立即执行一次查询
   pollTaskStatus(taskId)
   
-  // 然后定时轮询
+  // 然后定时rondas询
   pollTimer = setInterval(() => {
     pollTaskStatus(taskId)
   }, 2000)
@@ -796,7 +796,7 @@ const pollTaskStatus = async (taskId) => {
       console.log('Task status:', task.status, 'Progress:', task.progress)
       
       if (task.status === 'completed') {
-        console.log('✅ 图谱构建完成，正在加载完整数据...')
+        console.log('✅ Construccion de grafo完成，正在加载完整数据...')
         
         stopPolling()
         stopGraphPolling()
@@ -826,7 +826,7 @@ const pollTaskStatus = async (taskId) => {
       } else if (task.status === 'failed') {
         stopPolling()
         stopGraphPolling()
-        error.value = '图谱构建失败: ' + (task.error || '未知错误')
+        error.value = 'Construccion de grafo失败: ' + (task.error || '未知错误')
         buildProgress.value = null
       }
     }
@@ -904,7 +904,7 @@ const renderGraph = () => {
       .attr('y', height / 2)
       .attr('text-anchor', 'middle')
       .attr('fill', '#999')
-      .text('等待图谱数据...')
+      .text('En espera图谱数据...')
     return
   }
   
@@ -1875,7 +1875,7 @@ onUnmounted(() => {
   color: #333;
 }
 
-/* 等待状态 */
+/* En espera状态 */
 .waiting-state {
   padding: 16px;
   background: #F9F9F9;

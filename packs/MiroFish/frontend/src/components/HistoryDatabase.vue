@@ -105,7 +105,7 @@
       <span class="loading-text">Cargando...</span>
     </div>
 
-    <!-- 历史回放详情弹窗 -->
+    <!-- Historial详情弹窗 -->
     <Teleport to="body">
       <Transition name="modal">
         <div v-if="selectedProject" class="modal-overlay" @click.self="closeModal">
@@ -306,19 +306,19 @@ const getCardStyle = (index) => {
   }
 }
 
-// 根据轮数进度获取样式类
+// 根据rondas数进度获取样式类
 const getProgressClass = (simulation) => {
   const current = simulation.current_round || 0
   const total = simulation.total_rounds || 0
   
   if (total === 0 || current === 0) {
-    // 未开始
+    // Sin iniciar
     return 'not-started'
   } else if (current >= total) {
-    // 已完成
+    // Completado
     return 'completed'
   } else {
-    // 进行中
+    // En progreso
     return 'in-progress'
   }
 }
@@ -367,7 +367,7 @@ const formatSimulationId = (simulationId) => {
   return `SIM_${prefix.toUpperCase()}`
 }
 
-// 格式化轮数显示（当前轮/总轮数）
+// 格式化rondas数显示（当前rondas/总rondas数）
 const formatRounds = (simulation) => {
   const current = simulation.current_round || 0
   const total = simulation.total_rounds || 0
@@ -419,7 +419,7 @@ const closeModal = () => {
   selectedProject.value = null
 }
 
-// 导航到图谱构建页面（Project）
+// 导航到Construccion de grafo页面（Project）
 const goToProject = () => {
   if (selectedProject.value?.project_id) {
     router.push({
@@ -600,7 +600,7 @@ onMounted(async () => {
   await nextTick()
   await loadHistory()
   
-  // 等待 DOM 渲染后初始化观察器
+  // En espera DOM 渲染后初始化观察器
   setTimeout(() => {
     initObserver()
   }, 100)
@@ -778,8 +778,8 @@ onUnmounted(() => {
 }
 
 /* 不同功能的颜色 */
-.status-icon:nth-child(1).available { color: #3B82F6; } /* 图谱构建 - 蓝色 */
-.status-icon:nth-child(2).available { color: #F59E0B; } /* 环境搭建 - 橙色 */
+.status-icon:nth-child(1).available { color: #3B82F6; } /* Construccion de grafo - 蓝色 */
+.status-icon:nth-child(2).available { color: #F59E0B; } /* Configuracion de entorno - 橙色 */
 .status-icon:nth-child(3).available { color: #10B981; } /* 分析报告 - 绿色 */
 
 .status-icon.unavailable {
@@ -787,7 +787,7 @@ onUnmounted(() => {
   opacity: 0.5;
 }
 
-/* 轮数进度显示 */
+/* rondas数进度显示 */
 .card-progress {
   display: flex;
   align-items: center;
@@ -802,9 +802,9 @@ onUnmounted(() => {
 }
 
 /* 进度状态颜色 */
-.card-progress.completed { color: #10B981; }    /* 已完成 - 绿色 */
-.card-progress.in-progress { color: #F59E0B; }  /* 进行中 - 橙色 */
-.card-progress.not-started { color: #9CA3AF; }  /* 未开始 - 灰色 */
+.card-progress.completed { color: #10B981; }    /* Completado - 绿色 */
+.card-progress.in-progress { color: #F59E0B; }  /* En progreso - 橙色 */
+.card-progress.not-started { color: #9CA3AF; }  /* Sin iniciar - 灰色 */
 .card-status.pending { color: #9CA3AF; }
 
 /* 文件列表区域 */
@@ -989,7 +989,7 @@ onUnmounted(() => {
   gap: 8px;
 }
 
-/* 底部轮数进度显示 */
+/* 底部rondas数进度显示 */
 .card-footer .card-progress {
   display: flex;
   align-items: center;
@@ -1068,7 +1068,7 @@ onUnmounted(() => {
   }
 }
 
-/* ===== 历史回放详情弹窗样式 ===== */
+/* ===== Historial详情弹窗样式 ===== */
 .modal-overlay {
   position: fixed;
   top: 0;

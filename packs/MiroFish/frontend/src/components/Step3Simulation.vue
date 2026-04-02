@@ -298,10 +298,10 @@ import { generateReport } from '../api/report'
 
 const props = defineProps({
   simulationId: String,
-  maxRounds: Number, // 从Step2传入的最大轮数
+  maxRounds: Number, // 从Step2传入的最大rondas数
   minutesPerRound: {
     type: Number,
-    default: 30 // 默认每轮30分钟
+    default: 30 // 默认每rondas30分钟
   },
   projectData: Object,
   graphData: Object,
@@ -314,7 +314,7 @@ const router = useRouter()
 
 // State
 const isGeneratingReport = ref(false)
-const phase = ref(0) // 0: 未开始, 1: 运行中, 2: 已完成
+const phase = ref(0) // 0: Sin iniciar, 1: 运行中, 2: Completado
 const isStarting = ref(false)
 const isStopping = ref(false)
 const startError = ref(null)
@@ -338,7 +338,7 @@ const redditActionsCount = computed(() => {
   return allActions.value.filter(a => a.platform === 'reddit').length
 })
 
-// 格式化模拟流逝时间（根据轮次和每轮分钟数计算）
+// 格式化模拟流逝时间（根据rondas次和每rondas分钟数计算）
 const formatElapsedTime = (currentRound) => {
   if (!currentRound || currentRound <= 0) return '0h 0m'
   const totalMinutes = currentRound * props.minutesPerRound
@@ -373,7 +373,7 @@ const resetAllState = () => {
   startError.value = null
   isStarting.value = false
   isStopping.value = false
-  stopPolling()  // 停止之前可能存在的轮询
+  stopPolling()  // 停止之前可能存在的rondas询
 }
 
 // 启动模拟
@@ -401,7 +401,7 @@ const doStartSimulation = async () => {
     
     if (props.maxRounds) {
       params.max_rounds = props.maxRounds
-      addLog(`设置最大模拟轮数: ${props.maxRounds}`)
+      addLog(`设置最大模拟rondas数: ${props.maxRounds}`)
     }
     
     addLog('已开启动态图谱更新模式')
@@ -410,7 +410,7 @@ const doStartSimulation = async () => {
     
     if (res.success && res.data) {
       if (res.data.force_restarted) {
-        addLog('✓ 已清理旧的模拟日志，重新开始模拟')
+        addLog('✓ 已清理旧的模拟日志，重新Iniciar simulacion')
       }
       addLog('✓ 模拟引擎启动成功')
       addLog(`  ├─ PID: ${res.data.process_pid || '-'}`)
@@ -459,7 +459,7 @@ const handleStopSimulation = async () => {
   }
 }
 
-// 轮询状态
+// rondas询状态
 let statusTimer = null
 let detailTimer = null
 
@@ -482,7 +482,7 @@ const stopPolling = () => {
   }
 }
 
-// 追踪各平台的上一次轮次，用于检测变化并输出日志
+// 追踪各平台的上一次rondas次，用于检测变化并输出日志
 const prevTwitterRound = ref(0)
 const prevRedditRound = ref(0)
 
@@ -497,7 +497,7 @@ const fetchRunStatus = async () => {
       
       runStatus.value = data
       
-      // 分别检测各平台的轮次变化并输出日志
+      // 分别检测各平台的rondas次变化并输出日志
       if (data.twitter_current_round > prevTwitterRound.value) {
         addLog(`[Plaza] R${data.twitter_current_round}/${data.total_rounds} | T:${data.twitter_simulated_hours || 0}h | A:${data.twitter_actions_count}`)
         prevTwitterRound.value = data.twitter_current_round
@@ -508,7 +508,7 @@ const fetchRunStatus = async () => {
         prevRedditRound.value = data.reddit_current_round
       }
       
-      // 检测模拟是否已完成（通过 runner_status 或平台完成状态判断）
+      // 检测模拟是否Completado（通过 runner_status 或平台完成状态判断）
       const isCompleted = data.runner_status === 'completed' || data.runner_status === 'stopped'
       
       // 额外检查：如果后端还没来得及更新 runner_status，但平台已经报告完成
@@ -519,7 +519,7 @@ const fetchRunStatus = async () => {
         if (platformsCompleted && !isCompleted) {
           addLog('✓ 检测到所有平台模拟已结束')
         }
-        addLog('✓ 模拟已完成')
+        addLog('✓ 模拟Completado')
         phase.value = 2
         stopPolling()
         emit('update-status', 'completed')
@@ -530,7 +530,7 @@ const fetchRunStatus = async () => {
   }
 }
 
-// 检查所有启用的平台是否已完成
+// 检查所有启用的平台是否Completado
 const checkPlatformsCompleted = (data) => {
   // 如果没有任何平台数据，返回 false
   if (!data) return false
@@ -547,7 +547,7 @@ const checkPlatformsCompleted = (data) => {
   // 如果没有任何平台被启用，返回 false
   if (!twitterEnabled && !redditEnabled) return false
   
-  // 检查所有启用的平台是否都已完成
+  // 检查所有启用的平台是否都Completado
   if (twitterEnabled && !twitterCompleted) return false
   if (redditEnabled && !redditCompleted) return false
   
@@ -645,12 +645,12 @@ const handleNextStep = async () => {
   }
   
   if (isGeneratingReport.value) {
-    addLog('报告生成请求已发送，请稍候...')
+    addLog('Generacion de reporte请求已发送，请稍候...')
     return
   }
   
   isGeneratingReport.value = true
-  addLog('正在启动报告生成...')
+  addLog('正在启动Generacion de reporte...')
   
   try {
     const res = await generateReport({
@@ -660,16 +660,16 @@ const handleNextStep = async () => {
     
     if (res.success && res.data) {
       const reportId = res.data.report_id
-      addLog(`✓ 报告生成任务已启动: ${reportId}`)
+      addLog(`✓ Generacion de reporte任务已启动: ${reportId}`)
       
       // 跳转到报告页面
       router.push({ name: 'Report', params: { reportId } })
     } else {
-      addLog(`✗ 启动报告生成失败: ${res.error || '未知错误'}`)
+      addLog(`✗ 启动Generacion de reporte失败: ${res.error || '未知错误'}`)
       isGeneratingReport.value = false
     }
   } catch (err) {
-    addLog(`✗ 启动报告生成异常: ${err.message}`)
+    addLog(`✗ 启动Generacion de reporte异常: ${err.message}`)
     isGeneratingReport.value = false
   }
 }

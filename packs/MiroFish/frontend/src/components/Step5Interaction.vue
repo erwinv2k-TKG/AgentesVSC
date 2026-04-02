@@ -155,7 +155,7 @@
               <div class="tools-card-avatar">R</div>
               <div class="tools-card-info">
                 <div class="tools-card-name">Report Agent - Chat</div>
-                <div class="tools-card-subtitle">报告生成智能体的快速对话版本，可调用 4 种专业工具，拥有MiroFish的完整记忆</div>
+                <div class="tools-card-subtitle">Generacion de reporte智能体的快速对话版本，可调用 4 种专业工具，拥有MiroFish的完整记忆</div>
               </div>
               <button class="tools-card-toggle" @click="showToolsDetail = !showToolsDetail">
                 <svg :class="{ 'is-expanded': showToolsDetail }" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
@@ -209,7 +209,7 @@
                   </div>
                   <div class="tool-content">
                     <div class="tool-name">InterviewSubAgent 虚拟访谈</div>
-                    <div class="tool-desc">自主式访谈，能够并行与模拟世界中个体进行多轮对话，采集非结构化的观点数据与心理状态</div>
+                    <div class="tool-desc">自主式访谈，能够并行与模拟世界中个体进行多rondas对话，采集非结构化的观点数据与心理状态</div>
                   </div>
                 </div>
               </div>
@@ -935,7 +935,7 @@ const handleClickOutside = (e) => {
 
 // Lifecycle
 onMounted(() => {
-  addLog('Step5 深度互动初始化')
+  addLog('Step5 Interaccion profunda初始化')
   loadReportData()
   loadProfiles()
   document.addEventListener('click', handleClickOutside)

@@ -42,7 +42,7 @@ export const getSimulationProfiles = (simulationId, platform = 'reddit') => {
 }
 
 /**
- * 实时获取生成中的 Agent Profiles
+ * 实时获取Generando的 Agent Profiles
  * @param {string} simulationId
  * @param {string} platform - 'reddit' | 'twitter'
  */
@@ -59,7 +59,7 @@ export const getSimulationConfig = (simulationId) => {
 }
 
 /**
- * 实时获取生成中的模拟配置
+ * 实时获取Generando的模拟配置
  * @param {string} simulationId
  * @returns {Promise} 返回配置信息，包含元数据和配置内容
  */
@@ -122,10 +122,10 @@ export const getSimulationPosts = (simulationId, platform = 'reddit', limit = 50
 }
 
 /**
- * 获取模拟时间线（按轮次汇总）
+ * 获取模拟时间线（按rondas次汇总）
  * @param {string} simulationId
- * @param {number} startRound - 起始轮次
- * @param {number} endRound - 结束轮次
+ * @param {number} startRound - 起始rondas次
+ * @param {number} endRound - 结束rondas次
  */
 export const getSimulationTimeline = (simulationId, startRound = 0, endRound = null) => {
   const params = { start_round: startRound }

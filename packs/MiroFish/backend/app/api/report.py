@@ -65,7 +65,7 @@ def generate_report():
         if not state:
             return jsonify({
                 "success": False,
-                "error": f"模拟不存在: {simulation_id}"
+                "error": f"Simulacion no existe: {simulation_id}"
             }), 404
         
         # 检查是否已有报告
@@ -88,7 +88,7 @@ def generate_report():
         if not project:
             return jsonify({
                 "success": False,
-                "error": f"项目不存在: {state.project_id}"
+                "error": f"Proyecto no existe: {state.project_id}"
             }), 404
         
         graph_id = state.graph_id or project.graph_id
@@ -167,7 +167,7 @@ def generate_report():
                     task_manager.fail_task(task_id, report.error or "Fallo al generar el reporte")
                 
             except Exception as e:
-                logger.error(f"报告生成失败: {str(e)}")
+                logger.error(f"Fallo al generar reporte: {str(e)}")
                 task_manager.fail_task(task_id, str(e))
         
         # 启动后台线程
@@ -187,7 +187,7 @@ def generate_report():
         })
         
     except Exception as e:
-        logger.error(f"启动报告生成任务失败: {str(e)}")
+        logger.error(f"Fallo al iniciar la generacion de reporte: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -234,7 +234,7 @@ def get_generate_status():
                         "report_id": existing_report.report_id,
                         "status": "completed",
                         "progress": 100,
-                        "message": "报告已生成",
+                        "message": "Reporte generado",
                         "already_completed": True
                     }
                 })
@@ -242,7 +242,7 @@ def get_generate_status():
         if not task_id:
             return jsonify({
                 "success": False,
-                "error": "请提供 task_id 或 simulation_id"
+                "error": "Por favor proporciona task_id o simulation_id"
             }), 400
         
         task_manager = TaskManager()
@@ -251,7 +251,7 @@ def get_generate_status():
         if not task:
             return jsonify({
                 "success": False,
-                "error": f"任务不存在: {task_id}"
+                "error": f"Tarea no existe: {task_id}"
             }), 404
         
         return jsonify({
@@ -260,7 +260,7 @@ def get_generate_status():
         })
         
     except Exception as e:
-        logger.error(f"查询任务状态失败: {str(e)}")
+        logger.error(f"Fallo al consultar estado de tarea: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e)
@@ -294,7 +294,7 @@ def get_report(report_id: str):
         if not report:
             return jsonify({
                 "success": False,
-                "error": f"报告不存在: {report_id}"
+                "error": f"Reporte no existe: {report_id}"
             }), 404
         
         return jsonify({
@@ -303,7 +303,7 @@ def get_report(report_id: str):
         })
         
     except Exception as e:
-        logger.error(f"获取报告失败: {str(e)}")
+        logger.error(f"Fallo al obtener reporte: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -342,7 +342,7 @@ def get_report_by_simulation(simulation_id: str):
         })
         
     except Exception as e:
-        logger.error(f"获取报告失败: {str(e)}")
+        logger.error(f"Fallo al obtener reporte: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -382,7 +382,7 @@ def list_reports():
         })
         
     except Exception as e:
-        logger.error(f"列出报告失败: {str(e)}")
+        logger.error(f"Fallo al listar reportes: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -403,7 +403,7 @@ def download_report(report_id: str):
         if not report:
             return jsonify({
                 "success": False,
-                "error": f"报告不存在: {report_id}"
+                "error": f"Reporte no existe: {report_id}"
             }), 404
         
         md_path = ReportManager._get_report_markdown_path(report_id)
@@ -445,16 +445,16 @@ def delete_report(report_id: str):
         if not success:
             return jsonify({
                 "success": False,
-                "error": f"报告不存在: {report_id}"
+                "error": f"Reporte no existe: {report_id}"
             }), 404
         
         return jsonify({
             "success": True,
-            "message": f"报告已删除: {report_id}"
+            "message": f"Reporte eliminado: {report_id}"
         })
         
     except Exception as e:
-        logger.error(f"删除报告失败: {str(e)}")
+        logger.error(f"Fallo al eliminar reporte: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -501,13 +501,13 @@ def chat_with_report_agent():
         if not simulation_id:
             return jsonify({
                 "success": False,
-                "error": "请提供 simulation_id"
+                "error": "Por favor proporciona simulation_id"
             }), 400
         
         if not message:
             return jsonify({
                 "success": False,
-                "error": "请提供 message"
+                "error": "Por favor proporciona message"
             }), 400
         
         # 获取模拟和项目信息
@@ -517,21 +517,21 @@ def chat_with_report_agent():
         if not state:
             return jsonify({
                 "success": False,
-                "error": f"模拟不存在: {simulation_id}"
+                "error": f"Simulacion no existe: {simulation_id}"
             }), 404
         
         project = ProjectManager.get_project(state.project_id)
         if not project:
             return jsonify({
                 "success": False,
-                "error": f"项目不存在: {state.project_id}"
+                "error": f"Proyecto no existe: {state.project_id}"
             }), 404
         
         graph_id = state.graph_id or project.graph_id
         if not graph_id:
             return jsonify({
                 "success": False,
-                "error": "缺少图谱ID"
+                "error": "Falta graph_id"
             }), 400
         
         simulation_requirement = project.simulation_requirement or ""
@@ -551,7 +551,7 @@ def chat_with_report_agent():
         })
         
     except Exception as e:
-        logger.error(f"对话失败: {str(e)}")
+        logger.error(f"Fallo en la conversacion: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -585,7 +585,7 @@ def get_report_progress(report_id: str):
         if not progress:
             return jsonify({
                 "success": False,
-                "error": f"报告不存在或进度信息不可用: {report_id}"
+                "error": f"Reporte no existe或进度信息不可用: {report_id}"
             }), 404
         
         return jsonify({
@@ -949,7 +949,7 @@ def search_graph_tool():
         if not graph_id or not query:
             return jsonify({
                 "success": False,
-                "error": "请提供 graph_id 和 query"
+                "error": "Por favor proporciona graph_id y query"
             }), 400
         
         from ..services.zep_tools import ZepToolsService
@@ -967,7 +967,7 @@ def search_graph_tool():
         })
         
     except Exception as e:
-        logger.error(f"图谱搜索失败: {str(e)}")
+        logger.error(f"Fallo en busqueda de grafo: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),
@@ -993,7 +993,7 @@ def get_graph_statistics_tool():
         if not graph_id:
             return jsonify({
                 "success": False,
-                "error": "请提供 graph_id"
+                "error": "Por favor proporciona graph_id"
             }), 400
         
         from ..services.zep_tools import ZepToolsService
@@ -1007,7 +1007,7 @@ def get_graph_statistics_tool():
         })
         
     except Exception as e:
-        logger.error(f"获取图谱统计失败: {str(e)}")
+        logger.error(f"Fallo al obtener estadisticas del grafo: {str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),

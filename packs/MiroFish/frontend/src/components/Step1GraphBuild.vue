@@ -9,9 +9,9 @@
             <span class="step-title">本体生成</span>
           </div>
           <div class="step-status">
-            <span v-if="currentPhase > 0" class="badge success">已完成</span>
-            <span v-else-if="currentPhase === 0" class="badge processing">生成中</span>
-            <span v-else class="badge pending">等待</span>
+            <span v-if="currentPhase > 0" class="badge success">Completado</span>
+            <span v-else-if="currentPhase === 0" class="badge processing">Generando</span>
+            <span v-else class="badge pending">En espera</span>
           </div>
         </div>
         
@@ -113,9 +113,9 @@
             <span class="step-title">GraphRAG构建</span>
           </div>
           <div class="step-status">
-            <span v-if="currentPhase > 1" class="badge success">已完成</span>
+            <span v-if="currentPhase > 1" class="badge success">Completado</span>
             <span v-else-if="currentPhase === 1" class="badge processing">{{ buildProgress?.progress || 0 }}%</span>
-            <span v-else class="badge pending">等待</span>
+            <span v-else class="badge pending">En espera</span>
           </div>
         </div>
 
@@ -151,20 +151,20 @@
             <span class="step-title">构建完成</span>
           </div>
           <div class="step-status">
-            <span v-if="currentPhase >= 2" class="badge accent">进行中</span>
+            <span v-if="currentPhase >= 2" class="badge accent">En progreso</span>
           </div>
         </div>
         
         <div class="card-content">
           <p class="api-note">POST /api/simulation/create</p>
-          <p class="description">图谱构建已完成，请进入下一步进行模拟环境搭建</p>
+          <p class="description">Construccion de grafoCompletado，请进入下一步进行模拟Configuracion de entorno</p>
           <button 
             class="action-btn" 
             :disabled="currentPhase < 2 || creatingSimulation"
             @click="handleEnterEnvSetup"
           >
             <span v-if="creatingSimulation" class="spinner-sm"></span>
-            {{ creatingSimulation ? '创建中...' : '进入环境搭建 ➝' }}
+            {{ creatingSimulation ? '创建中...' : '进入Configuracion de entorno ➝' }}
           </button>
         </div>
       </div>
@@ -208,7 +208,7 @@ const selectedOntologyItem = ref(null)
 const logContent = ref(null)
 const creatingSimulation = ref(false)
 
-// 进入环境搭建 - 创建 simulation 并跳转
+// 进入Configuracion de entorno - 创建 simulation 并跳转
 const handleEnterEnvSetup = async () => {
   if (!props.projectData?.project_id || !props.projectData?.graph_id) {
     console.error('缺少项目或图谱信息')

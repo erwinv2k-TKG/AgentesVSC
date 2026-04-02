@@ -17,8 +17,8 @@
           </div>
           
           <h1 class="main-title">
-            上传任意报告<br>
-            <span class="gradient-text">即刻推演未来</span>
+            Sube cualquier informe<br>
+            <span class="gradient-text">simula el futuro al instante</span>
           </h1>
           
           <div class="hero-desc">
@@ -50,10 +50,10 @@
         <!-- 左栏：状态与步骤 -->
         <div class="left-panel">
           <div class="panel-header">
-            <span class="status-dot">■</span> 系统状态
+            <span class="status-dot">■</span> Estado del sistema
           </div>
           
-          <h2 class="section-title">准备就绪</h2>
+          <h2 class="section-title">Listo</h2>
           <p class="section-desc">
             预测引擎待命中，可上传多份非结构化数据以初始化模拟序列
           </p>
@@ -79,35 +79,35 @@
               <div class="workflow-item">
                 <span class="step-num">01</span>
                 <div class="step-info">
-                  <div class="step-title">图谱构建</div>
+                  <div class="step-title">Construccion de grafo</div>
                   <div class="step-desc">现实种子提取 & 个体与群体记忆注入 & GraphRAG构建</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">02</span>
                 <div class="step-info">
-                  <div class="step-title">环境搭建</div>
+                  <div class="step-title">Configuracion de entorno</div>
                   <div class="step-desc">实体关系抽取 & 人设生成 & 环境配置Agent注入仿真参数</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">03</span>
                 <div class="step-info">
-                  <div class="step-title">开始模拟</div>
+                  <div class="step-title">Iniciar simulacion</div>
                   <div class="step-desc">双平台并行模拟 & 自动解析预测需求 & 动态更新时序记忆</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">04</span>
                 <div class="step-info">
-                  <div class="step-title">报告生成</div>
+                  <div class="step-title">Generacion de reporte</div>
                   <div class="step-desc">ReportAgent拥有丰富的工具集与模拟后环境进行深度交互</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">05</span>
                 <div class="step-info">
-                  <div class="step-title">深度互动</div>
+                  <div class="step-title">Interaccion profunda</div>
                   <div class="step-desc">与模拟世界中的任意一位进行对话 & 与ReportAgent进行对话</div>
                 </div>
               </div>
@@ -122,7 +122,7 @@
             <div class="console-section">
               <div class="console-header">
                 <span class="console-label">01 / 现实种子</span>
-                <span class="console-meta">支持格式: PDF, MD, TXT</span>
+                <span class="console-meta">Formatos: PDF, MD, TXT</span>
               </div>
               
               <div 
@@ -145,8 +145,8 @@
                 
                 <div v-if="files.length === 0" class="upload-placeholder">
                   <div class="upload-icon">↑</div>
-                  <div class="upload-title">拖拽文件上传</div>
-                  <div class="upload-hint">或点击浏览文件系统</div>
+                  <div class="upload-title">Arrastra archivos aqui</div>
+                  <div class="upload-hint">o haz clic para explorar</div>
                 </div>
                 
                 <div v-else class="file-list">
@@ -161,13 +161,13 @@
 
             <!-- 分割线 -->
             <div class="console-divider">
-              <span>输入参数</span>
+              <span>Parametros</span>
             </div>
 
             <!-- 输入区域 -->
             <div class="console-section">
               <div class="console-header">
-                <span class="console-label">>_ 02 / 模拟提示词</span>
+                <span class="console-label">>_ 02 / Prompt de simulacion</span>
               </div>
               <div class="input-wrapper">
                 <textarea
@@ -188,8 +188,8 @@
                 @click="startSimulation"
                 :disabled="!canSubmit || loading"
               >
-                <span v-if="!loading">启动引擎</span>
-                <span v-else>初始化中...</span>
+                <span v-if="!loading">Iniciar motor</span>
+                <span v-else>Inicializando...</span>
                 <span class="btn-arrow">→</span>
               </button>
             </div>
@@ -285,7 +285,7 @@ const scrollToBottom = () => {
   })
 }
 
-// 开始模拟 - 立即跳转，API调用在Process页面进行
+// Iniciar simulacion - 立即跳转，API调用在Process页面进行
 const startSimulation = () => {
   if (!canSubmit.value || loading.value) return
   
