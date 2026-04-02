@@ -89,7 +89,7 @@ const viewMode = ref('split')
 const currentSimulationId = ref(route.params.simulationId)
 // 直接在初始化时从 query 参数获取 maxRounds，确保子组件能立即获取到值
 const maxRounds = ref(route.query.maxRounds ? parseInt(route.query.maxRounds) : null)
-const minutesPerRound = ref(30) // 默认每rondas30分钟
+const minutesPerRound = ref(30) // 默认每rondas30minutos
 const projectData = ref(null)
 const graphData = ref(null)
 const graphLoading = ref(false)
@@ -213,10 +213,10 @@ const loadSimulationData = async () => {
         const configRes = await getSimulationConfig(currentSimulationId.value)
         if (configRes.success && configRes.data?.time_config?.minutes_per_round) {
           minutesPerRound.value = configRes.data.time_config.minutes_per_round
-          addLog(`时间配置: 每rondas ${minutesPerRound.value} 分钟`)
+          addLog(`时间配置: 每rondas ${minutesPerRound.value} minutos`)
         }
       } catch (configErr) {
-        addLog(`获取时间配置失败，使用默认值: ${minutesPerRound.value}分钟/rondas`)
+        addLog(`获取时间配置失败，使用默认值: ${minutesPerRound.value}minutos/rondas`)
       }
       
       // 获取 project 信息

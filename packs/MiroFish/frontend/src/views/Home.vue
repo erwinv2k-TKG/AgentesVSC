@@ -12,8 +12,8 @@
       <section class="hero-section">
         <div class="hero-left">
           <div class="tag-row">
-            <span class="orange-tag">简洁通用的群体智能引擎</span>
-            <span class="version-text">/ v0.1-预览版</span>
+            <span class="orange-tag">Motor universal de inteligencia colectiva</span>
+            <span class="version-text">/ v0.1-vista previa</span>
           </div>
           
           <h1 class="main-title">
@@ -23,10 +23,10 @@
           
           <div class="hero-desc">
             <p>
-              即使只有一段文字，<span class="highlight-bold">MiroFish</span> 也能基于其中的现实种子，全自动生成与之对应的至多<span class="highlight-orange">百万级Agent</span>构成的平行世界。通过上帝视角注入变量，在复杂的群体交互中寻找动态环境下的<span class="highlight-code">“局部最优解”</span>
+              Con tan solo un parrafo de texto, <span class="highlight-bold">MiroFish</span> genera automaticamente un mundo paralelo de hasta <span class="highlight-orange">millones de agentes</span>. Inyecta variables y encuentra <span class="highlight-code">soluciones optimas locales</span> en interacciones complejas.
             </p>
             <p class="slogan-text">
-              让未来在 Agent 群中预演，让决策在百战后胜出<span class="blinking-cursor">_</span>
+              Deja que el futuro se ensaye entre agentes y que las decisiones mejoren con simulacion<span class="blinking-cursor">_</span>
             </p>
           </div>
            
@@ -55,60 +55,60 @@
           
           <h2 class="section-title">Listo</h2>
           <p class="section-desc">
-            预测引擎待命中，可上传多份非结构化数据以初始化模拟序列
+            Motor de prediccion en espera. Puedes subir varios archivos no estructurados para iniciar la simulacion.
           </p>
           
           <!-- 数据指标卡片 -->
           <div class="metrics-row">
             <div class="metric-card">
-              <div class="metric-value">低成本</div>
-              <div class="metric-label">常规模拟平均5$/次</div>
+              <div class="metric-value">Bajo coste</div>
+              <div class="metric-label">Simulacion promedio ~5$/vez</div>
             </div>
             <div class="metric-card">
-              <div class="metric-value">高可用</div>
-              <div class="metric-label">最多百万级Agent模拟</div>
+              <div class="metric-value">Alta escala</div>
+              <div class="metric-label">Hasta millones de agentes</div>
             </div>
           </div>
 
           <!-- 项目模拟步骤介绍 (新增区域) -->
           <div class="steps-container">
             <div class="steps-header">
-               <span class="diamond-icon">◇</span> 工作流序列
+               <span class="diamond-icon">◇</span> Flujo de trabajo
             </div>
             <div class="workflow-list">
               <div class="workflow-item">
                 <span class="step-num">01</span>
                 <div class="step-info">
                   <div class="step-title">Construccion de grafo</div>
-                  <div class="step-desc">现实种子提取 & 个体与群体记忆注入 & GraphRAG构建</div>
+                  <div class="step-desc">Extraccion de semillas, memoria individual y colectiva, y GraphRAG</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">02</span>
                 <div class="step-info">
                   <div class="step-title">Configuracion de entorno</div>
-                  <div class="step-desc">实体关系抽取 & 人设生成 & 环境配置Agent注入仿真参数</div>
+                  <div class="step-desc">Extraccion de entidades, generacion de perfiles y parametros de entorno</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">03</span>
                 <div class="step-info">
                   <div class="step-title">Iniciar simulacion</div>
-                  <div class="step-desc">双平台并行模拟 & 自动解析预测需求 & 动态更新时序记忆</div>
+                  <div class="step-desc">Simulacion paralela, analisis automatico y memoria temporal dinamica</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">04</span>
                 <div class="step-info">
                   <div class="step-title">Generacion de reporte</div>
-                  <div class="step-desc">ReportAgent拥有丰富的工具集与模拟后环境进行深度交互</div>
+                  <div class="step-desc">ReportAgent usa herramientas para interactuar con el entorno simulado</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">05</span>
                 <div class="step-info">
                   <div class="step-title">Interaccion profunda</div>
-                  <div class="step-desc">与模拟世界中的任意一位进行对话 & 与ReportAgent进行对话</div>
+                  <div class="step-desc">Conversa con cualquier agente del mundo simulado y con ReportAgent</div>
                 </div>
               </div>
             </div>
@@ -121,7 +121,7 @@
             <!-- 上传区域 -->
             <div class="console-section">
               <div class="console-header">
-                <span class="console-label">01 / 现实种子</span>
+                <span class="console-label">01 / Semilla de la realidad</span>
                 <span class="console-meta">Formatos: PDF, MD, TXT</span>
               </div>
               
@@ -173,11 +173,11 @@
                 <textarea
                   v-model="formData.simulationRequirement"
                   class="code-input"
-                  placeholder="// 用自然语言输入模拟或预测需求（例.武大若发布撤销肖某处分的公告，会引发什么舆情走向）"
+                  placeholder="// Escribe en lenguaje natural tu objetivo de simulacion o prediccion"
                   rows="6"
                   :disabled="loading"
                 ></textarea>
-                <div class="model-badge">引擎: MiroFish-V1.0</div>
+                <div class="model-badge">Motor: MiroFish-V1.0</div>
               </div>
             </div>
 

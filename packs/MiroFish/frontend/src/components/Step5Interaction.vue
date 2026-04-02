@@ -126,7 +126,7 @@
                   <div class="agent-avatar">{{ (agent.username || 'A')[0] }}</div>
                   <div class="agent-info">
                     <span class="agent-name">{{ agent.username }}</span>
-                    <span class="agent-role">{{ agent.profession || '未知职业' }}</span>
+                    <span class="agent-role">{{ agent.profession || 'Profesion desconocida' }}</span>
                   </div>
                 </div>
               </div>
@@ -224,7 +224,7 @@
                 <div class="profile-card-name">{{ selectedAgent.username }}</div>
                 <div class="profile-card-meta">
                   <span v-if="selectedAgent.name" class="profile-card-handle">@{{ selectedAgent.name }}</span>
-                  <span class="profile-card-profession">{{ selectedAgent.profession || '未知职业' }}</span>
+                  <span class="profile-card-profession">{{ selectedAgent.profession || 'Profesion desconocida' }}</span>
                 </div>
               </div>
               <button class="profile-card-toggle" @click="showFullProfile = !showFullProfile">
@@ -335,7 +335,7 @@
                   <div class="checkbox-avatar">{{ (agent.username || 'A')[0] }}</div>
                   <div class="checkbox-info">
                     <span class="checkbox-name">{{ agent.username }}</span>
-                    <span class="checkbox-role">{{ agent.profession || '未知职业' }}</span>
+                    <span class="checkbox-role">{{ agent.profession || 'Profesion desconocida' }}</span>
                   </div>
                   <div class="checkbox-indicator">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3">
@@ -389,7 +389,7 @@
                   <div class="result-avatar">{{ (result.agent_name || 'A')[0] }}</div>
                   <div class="result-info">
                     <span class="result-name">{{ result.agent_name }}</span>
-                    <span class="result-role">{{ result.profession || '未知职业' }}</span>
+                    <span class="result-role">{{ result.profession || 'Profesion desconocida' }}</span>
                   </div>
                 </div>
                 <div class="result-question">

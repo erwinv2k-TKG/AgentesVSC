@@ -6,7 +6,7 @@
         <div class="card-header">
           <div class="step-info">
             <span class="step-num">01</span>
-            <span class="step-title">模拟实例初始化</span>
+            <span class="step-title">Inicializacion de simulacion</span>
           </div>
           <div class="step-status">
             <span v-if="phase > 0" class="badge success">Completado</span>
@@ -17,7 +17,7 @@
         <div class="card-content">
           <p class="api-note">POST /api/simulation/create</p>
           <p class="description">
-            新建simulation实例，拉取模拟世界参数模版
+            Crear una simulacion y cargar la plantilla de parametros
           </p>
 
           <div v-if="simulationId" class="info-card">
@@ -41,12 +41,12 @@
         </div>
       </div>
 
-      <!-- Step 02: 生成 Agent 人设 -->
+      <!-- Step 02: Generar perfiles de agentes -->
       <div class="step-card" :class="{ 'active': phase === 1, 'completed': phase > 1 }">
         <div class="card-header">
           <div class="step-info">
             <span class="step-num">02</span>
-            <span class="step-title">生成 Agent 人设</span>
+            <span class="step-title">Generar perfiles de agentes</span>
           </div>
           <div class="step-status">
             <span v-if="phase > 1" class="badge success">Completado</span>
@@ -58,29 +58,29 @@
         <div class="card-content">
           <p class="api-note">POST /api/simulation/prepare</p>
           <p class="description">
-            结合上下文，自动调用工具从知识图谱梳理实体与关系，初始化模拟个体，并基于现实种子赋予他们独特的行为与记忆
+            结合上下文，自动调用工具从知识图谱梳理实体与关系，初始化模拟个体，并基于Semilla de la realidad赋予他们独特的行为与记忆
           </p>
 
           <!-- Profiles Stats -->
           <div v-if="profiles.length > 0" class="stats-grid">
             <div class="stat-card">
               <span class="stat-value">{{ profiles.length }}</span>
-              <span class="stat-label">当前Agent数</span>
+              <span class="stat-label">Agentes actuales</span>
             </div>
             <div class="stat-card">
               <span class="stat-value">{{ expectedTotal || '-' }}</span>
-              <span class="stat-label">预期Agent总数</span>
+              <span class="stat-label">Total esperado de agentes</span>
             </div>
             <div class="stat-card">
               <span class="stat-value">{{ totalTopicsCount }}</span>
-              <span class="stat-label">现实种子当前关联话题数</span>
+              <span class="stat-label">Semilla de la realidad当前关联话题数</span>
             </div>
           </div>
 
           <!-- Profiles List Preview -->
           <div v-if="profiles.length > 0" class="profiles-preview">
             <div class="preview-header">
-              <span class="preview-title">已生成的 Agent 人设</span>
+              <span class="preview-title">Perfiles de agentes generados</span>
             </div>
             <div class="profiles-list">
               <div 
@@ -94,9 +94,9 @@
                   <span class="profile-username">@{{ profile.name || `agent_${idx}` }}</span>
                 </div>
                 <div class="profile-meta">
-                  <span class="profile-profession">{{ profile.profession || '未知职业' }}</span>
+                  <span class="profile-profession">{{ profile.profession || 'Profesion desconocida' }}</span>
                 </div>
-                <p class="profile-bio">{{ profile.bio || '暂无简介' }}</p>
+                <p class="profile-bio">{{ profile.bio || 'Sin biografia' }}</p>
                 <div v-if="profile.interested_topics?.length" class="profile-topics">
                   <span 
                     v-for="topic in profile.interested_topics.slice(0, 3)" 
@@ -113,12 +113,12 @@
         </div>
       </div>
 
-      <!-- Step 03: 生成双平台模拟配置 -->
+      <!-- Step 03: Generar configuracion multicanal -->
       <div class="step-card" :class="{ 'active': phase === 2, 'completed': phase > 2 }">
         <div class="card-header">
           <div class="step-info">
             <span class="step-num">03</span>
-            <span class="step-title">生成双平台模拟配置</span>
+            <span class="step-title">Generar configuracion multicanal</span>
           </div>
           <div class="step-status">
             <span v-if="phase > 2" class="badge success">Completado</span>
@@ -130,7 +130,7 @@
         <div class="card-content">
           <p class="api-note">POST /api/simulation/prepare</p>
           <p class="description">
-            LLM 根据模拟需求与现实种子，智能设置世界时间流速、推荐算法、每个个体的活跃时间段、发言频率、事件触发等参数
+            LLM 根据模拟需求与Semilla de la realidad，智能设置世界时间流速、推荐算法、每个个体的活跃时间段、发言频率、事件触发等参数
           </p>
           
           <!-- Config Preview -->
@@ -139,40 +139,40 @@
             <div class="config-block">
               <div class="config-grid">
                 <div class="config-item">
-                  <span class="config-item-label">模拟时长</span>
-                  <span class="config-item-value">{{ simulationConfig.time_config?.total_simulation_hours || '-' }} 小时</span>
+                  <span class="config-item-label">Duracion de simulacion</span>
+                  <span class="config-item-value">{{ simulationConfig.time_config?.total_simulation_hours || '-' }} horas</span>
                 </div>
                 <div class="config-item">
                   <span class="config-item-label">每rondas时长</span>
-                  <span class="config-item-value">{{ simulationConfig.time_config?.minutes_per_round || '-' }} 分钟</span>
+                  <span class="config-item-value">{{ simulationConfig.time_config?.minutes_per_round || '-' }} minutos</span>
                 </div>
                 <div class="config-item">
                   <span class="config-item-label">总rondas次</span>
                   <span class="config-item-value">{{ Math.floor((simulationConfig.time_config?.total_simulation_hours * 60 / simulationConfig.time_config?.minutes_per_round)) || '-' }} rondas</span>
                 </div>
                 <div class="config-item">
-                  <span class="config-item-label">每小时活跃</span>
+                  <span class="config-item-label">Activos por hora</span>
                   <span class="config-item-value">{{ simulationConfig.time_config?.agents_per_hour_min }}-{{ simulationConfig.time_config?.agents_per_hour_max }}</span>
                 </div>
               </div>
               <div class="time-periods">
                 <div class="period-item">
-                  <span class="period-label">高峰时段</span>
+                  <span class="period-label">Pico</span>
                   <span class="period-hours">{{ simulationConfig.time_config?.peak_hours?.join(':00, ') }}:00</span>
                   <span class="period-multiplier">×{{ simulationConfig.time_config?.peak_activity_multiplier }}</span>
                 </div>
                 <div class="period-item">
-                  <span class="period-label">工作时段</span>
+                  <span class="period-label">Laboral</span>
                   <span class="period-hours">{{ simulationConfig.time_config?.work_hours?.[0] }}:00-{{ simulationConfig.time_config?.work_hours?.slice(-1)[0] }}:00</span>
                   <span class="period-multiplier">×{{ simulationConfig.time_config?.work_activity_multiplier }}</span>
                 </div>
                 <div class="period-item">
-                  <span class="period-label">早间时段</span>
+                  <span class="period-label">Manana</span>
                   <span class="period-hours">{{ simulationConfig.time_config?.morning_hours?.[0] }}:00-{{ simulationConfig.time_config?.morning_hours?.slice(-1)[0] }}:00</span>
                   <span class="period-multiplier">×{{ simulationConfig.time_config?.morning_activity_multiplier }}</span>
                 </div>
                 <div class="period-item">
-                  <span class="period-label">低谷时段</span>
+                  <span class="period-label">Valle</span>
                   <span class="period-hours">{{ simulationConfig.time_config?.off_peak_hours?.[0] }}:00-{{ simulationConfig.time_config?.off_peak_hours?.slice(-1)[0] }}:00</span>
                   <span class="period-multiplier">×{{ simulationConfig.time_config?.off_peak_activity_multiplier }}</span>
                 </div>
@@ -440,7 +440,7 @@
             <div class="rounds-header">
               <div class="header-left">
                 <span class="section-title">模拟rondas数设定</span>
-                <span class="section-desc">MiroFish 自动规划推演现实 <span class="desc-highlight">{{ simulationConfig?.time_config?.total_simulation_hours || '-' }}</span> 小时，每rondas代表现实 <span class="desc-highlight">{{ simulationConfig?.time_config?.minutes_per_round || '-' }}</span> 分钟时间流逝</span>
+                <span class="section-desc">MiroFish 自动规划推演现实 <span class="desc-highlight">{{ simulationConfig?.time_config?.total_simulation_hours || '-' }}</span> horas，每rondas代表现实 <span class="desc-highlight">{{ simulationConfig?.time_config?.minutes_per_round || '-' }}</span> minutos时间流逝</span>
               </div>
               <label class="switch-control">
                 <input type="checkbox" v-model="useCustomRounds">
@@ -457,7 +457,7 @@
                     <span class="val-unit">rondas</span>
                   </div>
                   <div class="slider-meta-info">
-                    <span>若Agent规模为100：预计耗时约 {{ Math.round(customMaxRounds * 0.6) }} 分钟</span>
+                    <span>若Agent规模为100：预计耗时约 {{ Math.round(customMaxRounds * 0.6) }} minutos</span>
                   </div>
                 </div>
 
@@ -497,7 +497,7 @@
                           <circle cx="12" cy="12" r="10"></circle>
                           <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
-                        若Agent规模为100：预计耗时 {{ Math.round(autoGeneratedRounds * 0.6) }} 分钟
+                        若Agent规模为100：预计耗时 {{ Math.round(autoGeneratedRounds * 0.6) }} minutos
                       </span>
                     </div>
                     <div class="auto-desc">
@@ -567,12 +567,12 @@
           <!-- 简介 -->
           <div class="modal-section">
             <span class="section-label">人设简介</span>
-            <p class="section-bio">{{ selectedProfile.bio || '暂无简介' }}</p>
+            <p class="section-bio">{{ selectedProfile.bio || 'Sin biografia' }}</p>
           </div>
 
           <!-- 关注话题 -->
           <div class="modal-section" v-if="selectedProfile.interested_topics?.length">
-            <span class="section-label">现实种子关联话题</span>
+            <span class="section-label">Semilla de la realidad关联话题</span>
             <div class="topics-grid">
               <span 
                 v-for="topic in selectedProfile.interested_topics" 
@@ -598,7 +598,7 @@
               </div>
               <div class="dimension-card">
                 <span class="dim-title">独特记忆印记</span>
-                <span class="dim-desc">基于现实种子形成的记忆</span>
+                <span class="dim-desc">基于Semilla de la realidad形成的记忆</span>
               </div>
               <div class="dimension-card">
                 <span class="dim-title">社会关系网络</span>
@@ -680,7 +680,7 @@ watch(currentStage, (newStage) => {
     phase.value = 2
     // 进入配置生成阶段，开始rondas询配置
     if (!configTimer) {
-      addLog('开始生成双平台模拟配置...')
+      addLog('开始Generar configuracion multicanal...')
       startConfigPolling()
     }
   } else if (newStage === '准备模拟脚本' || newStage === 'copying_scripts') {
@@ -797,7 +797,7 @@ const startPrepareSimulation = async () => {
       addLog(`准备任务已启动`)
       addLog(`  └─ Task ID: ${res.data.task_id}`)
       
-      // 立即设置预期Agent总数（从prepare接口返回值获取）
+      // 立即设置Total esperado de agentes（从prepare接口返回值获取）
       if (res.data.expected_entities_count) {
         expectedTotal.value = res.data.expected_entities_count
         addLog(`从Zep图谱读取到 ${res.data.expected_entities_count} 个实体`)
@@ -936,7 +936,7 @@ const fetchProfilesRealtime = async () => {
         if (currentCount === 1) {
           addLog(`开始生成Agent人设...`)
         }
-        addLog(`→ Agent人设 ${currentCount}/${total}: ${profileName} (${latestProfile?.profession || '未知职业'})`)
+        addLog(`→ Agent人设 ${currentCount}/${total}: ${profileName} (${latestProfile?.profession || 'Profesion desconocida'})`)
         
         // 如果全部生成完成
         if (expectedTotal.value && currentCount >= expectedTotal.value) {
@@ -988,7 +988,7 @@ const fetchConfigRealtime = async () => {
         // 显示详细配置摘要
         if (data.summary) {
           addLog(`  ├─ Agent数量: ${data.summary.total_agents}个`)
-          addLog(`  ├─ 模拟时长: ${data.summary.simulation_hours}小时`)
+          addLog(`  ├─ Duracion de simulacion: ${data.summary.simulation_hours}horas`)
           addLog(`  ├─ 初始帖子: ${data.summary.initial_posts_count}条`)
           addLog(`  ├─ 热点话题: ${data.summary.hot_topics_count}个`)
           addLog(`  └─ 平台配置: Twitter ${data.summary.has_twitter_config ? '✓' : '✗'}, Reddit ${data.summary.has_reddit_config ? '✓' : '✗'}`)
@@ -997,7 +997,7 @@ const fetchConfigRealtime = async () => {
         // 显示时间配置详情
         if (data.config.time_config) {
           const tc = data.config.time_config
-          addLog(`时间配置: 每rondas${tc.minutes_per_round}分钟, 共${Math.floor((tc.total_simulation_hours * 60) / tc.minutes_per_round)}rondas`)
+          addLog(`时间配置: 每rondas${tc.minutes_per_round}minutos, 共${Math.floor((tc.total_simulation_hours * 60) / tc.minutes_per_round)}rondas`)
         }
         
         // 显示事件配置
@@ -1036,7 +1036,7 @@ const loadPreparedData = async () => {
         // 显示详细配置摘要
         if (res.data.summary) {
           addLog(`  ├─ Agent数量: ${res.data.summary.total_agents}个`)
-          addLog(`  ├─ 模拟时长: ${res.data.summary.simulation_hours}小时`)
+          addLog(`  ├─ Duracion de simulacion: ${res.data.summary.simulation_hours}horas`)
           addLog(`  └─ 初始帖子: ${res.data.summary.initial_posts_count}条`)
         }
         

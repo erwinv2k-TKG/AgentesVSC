@@ -6,7 +6,7 @@
         <div class="card-header">
           <div class="step-info">
             <span class="step-num">01</span>
-            <span class="step-title">本体生成</span>
+            <span class="step-title">Generacion de ontologia</span>
           </div>
           <div class="step-status">
             <span v-if="currentPhase > 0" class="badge success">Completado</span>
@@ -18,7 +18,7 @@
         <div class="card-content">
           <p class="api-note">POST /api/graph/ontology/generate</p>
           <p class="description">
-            LLM分析文档内容与模拟需求，提取出现实种子，自动生成合适的本体结构
+            LLM分析文档内容与模拟需求，提取出Semilla de la realidad，自动生成合适的本体结构
           </p>
 
           <!-- Loading / Progress -->
@@ -110,7 +110,7 @@
         <div class="card-header">
           <div class="step-info">
             <span class="step-num">02</span>
-            <span class="step-title">GraphRAG构建</span>
+            <span class="step-title">Construccion de GraphRAG</span>
           </div>
           <div class="step-status">
             <span v-if="currentPhase > 1" class="badge success">Completado</span>
@@ -148,7 +148,7 @@
         <div class="card-header">
           <div class="step-info">
             <span class="step-num">03</span>
-            <span class="step-title">构建完成</span>
+            <span class="step-title">Construccion completada</span>
           </div>
           <div class="step-status">
             <span v-if="currentPhase >= 2" class="badge accent">En progreso</span>
@@ -164,7 +164,7 @@
             @click="handleEnterEnvSetup"
           >
             <span v-if="creatingSimulation" class="spinner-sm"></span>
-            {{ creatingSimulation ? '创建中...' : '进入Configuracion de entorno ➝' }}
+            {{ creatingSimulation ? 'Creando...' : '进入Configuracion de entorno ➝' }}
           </button>
         </div>
       </div>

@@ -209,7 +209,7 @@
       <!-- En espera/空状态 -->
       <div v-else class="graph-state">
         <div class="empty-icon">❖</div>
-        <p class="empty-text">En espera本体生成...</p>
+        <p class="empty-text">En esperaGeneracion de ontologia...</p>
       </div>
     </div>
 

@@ -189,7 +189,7 @@
                 <line x1="50" y1="72" x2="74" y2="66" stroke="#000" stroke-width="1"/>
               </svg>
             </div>
-            <p class="waiting-text">En espera本体生成</p>
+            <p class="waiting-text">En esperaGeneracion de ontologia</p>
             <p class="waiting-hint">生成完成后将自动开始构建图谱</p>
           </div>
           
@@ -229,12 +229,12 @@
         </div>
 
         <div class="process-content">
-          <!-- 阶段1: 本体生成 -->
+          <!-- 阶段1: Generacion de ontologia -->
           <div class="process-phase" :class="{ 'active': currentPhase === 0, 'completed': currentPhase > 0 }">
             <div class="phase-header">
               <span class="phase-num">01</span>
               <div class="phase-info">
-                <div class="phase-title">本体生成</div>
+                <div class="phase-title">Generacion de ontologia</div>
                 <div class="phase-api">/api/graph/ontology/generate</div>
               </div>
               <span class="phase-status" :class="getPhaseStatusClass(0)">
@@ -250,7 +250,7 @@
                 </div>
               </div>
               
-              <!-- 本体生成进度 -->
+              <!-- Generacion de ontologia进度 -->
               <div class="detail-section" v-if="ontologyProgress && currentPhase === 0">
                 <div class="detail-label">生成进度</div>
                 <div class="ontology-progress">
@@ -295,7 +295,7 @@
               
               <!-- En espera状态 -->
               <div class="detail-section waiting-state" v-if="!projectData?.ontology && currentPhase === 0 && !ontologyProgress">
-                <div class="waiting-hint">En espera本体生成...</div>
+                <div class="waiting-hint">En esperaGeneracion de ontologia...</div>
               </div>
             </div>
           </div>
@@ -323,7 +323,7 @@
               
               <!-- En espera本体完成 -->
               <div class="detail-section waiting-state" v-if="currentPhase < 1">
-                <div class="waiting-hint">En espera本体生成完成...</div>
+                <div class="waiting-hint">En esperaGeneracion de ontologia完成...</div>
               </div>
               
               <!-- 构建进度 -->
@@ -363,7 +363,7 @@
             <div class="phase-header">
               <span class="phase-num">03</span>
               <div class="phase-info">
-                <div class="phase-title">构建完成</div>
+                <div class="phase-title">Construccion completada</div>
                 <div class="phase-api">准备进入下一步骤</div>
               </div>
               <span class="phase-status" :class="getPhaseStatusClass(2)">
@@ -431,7 +431,7 @@ const error = ref('')
 const projectData = ref(null)
 const graphData = ref(null)
 const buildProgress = ref(null)
-const ontologyProgress = ref(null) // 本体生成进度
+const ontologyProgress = ref(null) // Generacion de ontologia进度
 const currentPhase = ref(-1) // -1: 上传中, 0: 本体Generando, 1: Construccion de grafo, 2: 完成
 const selectedItem = ref(null) // 选中的节点或边
 const isFullScreen = ref(false)
@@ -452,7 +452,7 @@ const statusClass = computed(() => {
 
 const statusText = computed(() => {
   if (error.value) return '构建失败'
-  if (currentPhase.value >= 2) return '构建完成'
+  if (currentPhase.value >= 2) return 'Construccion completada'
   if (currentPhase.value === 1) return 'Construccion de grafo中'
   if (currentPhase.value === 0) return '本体Generando'
   return '初始化中'
@@ -575,7 +575,7 @@ const handleNewProject = async () => {
   
   try {
     loading.value = true
-    currentPhase.value = 0 // 本体生成阶段
+    currentPhase.value = 0 // Generacion de ontologia阶段
     ontologyProgress.value = { message: '正在上传文件并分析文档...' }
     
     // 构建 FormData
@@ -585,7 +585,7 @@ const handleNewProject = async () => {
     })
     formDataObj.append('simulation_requirement', pending.simulationRequirement)
     
-    // 调用本体生成 API
+    // 调用Generacion de ontologia API
     const response = await generateOntology(formDataObj)
     
     if (response.success) {
@@ -607,7 +607,7 @@ const handleNewProject = async () => {
       // 自动开始Construccion de grafo
       await startBuildGraph()
     } else {
-      error.value = response.error || '本体生成失败'
+      error.value = response.error || 'Generacion de ontologia失败'
     }
   } catch (err) {
     console.error('Handle new project error:', err)
@@ -805,7 +805,7 @@ const pollTaskStatus = async (taskId) => {
         // 更新进度显示为完成状态
         buildProgress.value = {
           progress: 100,
-          message: '构建完成，正在加载图谱...'
+          message: 'Construccion completada，正在加载图谱...'
         }
         
         // 重新加载项目数据获取 graph_id
@@ -1851,7 +1851,7 @@ onUnmounted(() => {
   font-size: 0.75rem;
 }
 
-/* 本体生成进度 */
+/* Generacion de ontologia进度 */
 .ontology-progress {
   display: flex;
   align-items: center;

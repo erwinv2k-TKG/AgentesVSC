@@ -301,7 +301,7 @@ const props = defineProps({
   maxRounds: Number, // 从Step2传入的最大rondas数
   minutesPerRound: {
     type: Number,
-    default: 30 // 默认每rondas30分钟
+    default: 30 // 默认每rondas30minutos
   },
   projectData: Object,
   graphData: Object,
@@ -338,7 +338,7 @@ const redditActionsCount = computed(() => {
   return allActions.value.filter(a => a.platform === 'reddit').length
 })
 
-// 格式化模拟流逝时间（根据rondas次和每rondas分钟数计算）
+// 格式化模拟流逝时间（根据rondas次和每rondasminutos数计算）
 const formatElapsedTime = (currentRound) => {
   if (!currentRound || currentRound <= 0) return '0h 0m'
   const totalMinutes = currentRound * props.minutesPerRound
