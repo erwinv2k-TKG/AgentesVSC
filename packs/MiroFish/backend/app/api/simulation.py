@@ -13,6 +13,7 @@ from ..services.zep_entity_reader import ZepEntityReader
 from ..services.oasis_profile_generator import OasisProfileGenerator
 from ..services.simulation_manager import SimulationManager, SimulationStatus
 from ..services.simulation_runner import SimulationRunner, RunnerStatus
+from ..services.report_agent import ReportManager
 from ..utils.logger import get_logger
 from ..models.project import ProjectManager
 
@@ -802,6 +803,51 @@ def list_simulations():
         
     except Exception as e:
         logger.error(f"列出模拟失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }), 500
+
+
+@simulation_bp.route('/<simulation_id>', methods=['DELETE'])
+def delete_simulation(simulation_id: str):
+    """删除指定模拟及其关联报告"""
+    try:
+        manager = SimulationManager()
+        state = manager.get_simulation(simulation_id)
+
+        if not state:
+            return jsonify({
+                "success": False,
+                "error": f"模拟不存在: {simulation_id}"
+            }), 404
+
+        # 删除关联报告（同一个 simulation 可能对应多个 report）
+        reports = ReportManager.list_reports(simulation_id=simulation_id, limit=200)
+        deleted_reports = 0
+        for report in reports:
+            if ReportManager.delete_report(report.report_id):
+                deleted_reports += 1
+
+        deleted = manager.delete_simulation(simulation_id)
+        if not deleted:
+            return jsonify({
+                "success": False,
+                "error": f"模拟目录不存在: {simulation_id}"
+            }), 404
+
+        return jsonify({
+            "success": True,
+            "message": f"模拟已删除: {simulation_id}",
+            "data": {
+                "simulation_id": simulation_id,
+                "deleted_reports": deleted_reports
+            }
+        })
+
+    except Exception as e:
+        logger.error(f"删除模拟失败: {simulation_id}, error={str(e)}")
         return jsonify({
             "success": False,
             "error": str(e),

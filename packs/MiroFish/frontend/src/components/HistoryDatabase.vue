@@ -179,6 +179,24 @@
                 <span class="btn-text">分析报告</span>
               </button>
             </div>
+            <div class="modal-divider admin-divider">
+              <span class="divider-line"></span>
+              <span class="divider-text">管理操作</span>
+              <span class="divider-line"></span>
+            </div>
+
+            <div class="modal-admin-actions">
+              <button class="admin-btn btn-review" @click="reviewSimulation">
+                <span class="admin-text">Revisar</span>
+              </button>
+              <button class="admin-btn btn-retry" @click="retrySimulation">
+                <span class="admin-text">Reintentar</span>
+              </button>
+              <button class="admin-btn btn-delete" @click="deleteSelectedSimulation">
+                <span class="admin-text">Eliminar</span>
+              </button>
+            </div>
+
             <!-- 不可回放提示 -->
             <div class="modal-playback-hint">
               <span class="hint-text">Step3「开始模拟」与 Step5「深度互动」需在运行中启动，不支持历史回放</span>
@@ -193,7 +211,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, onActivated, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getSimulationHistory } from '../api/simulation'
+import { getSimulationHistory, deleteSimulation } from '../api/simulation'
 
 const router = useRouter()
 const route = useRoute()
@@ -431,6 +449,45 @@ const goToReport = () => {
       params: { reportId: selectedProject.value.report_id }
     })
     closeModal()
+  }
+}
+
+// 管理操作：Revisar（优先报告，其次环境）
+const reviewSimulation = () => {
+  if (!selectedProject.value) return
+  if (selectedProject.value.report_id) {
+    goToReport()
+    return
+  }
+  goToSimulation()
+}
+
+// 管理操作：Reintentar（跳转到运行页面）
+const retrySimulation = () => {
+  if (selectedProject.value?.simulation_id) {
+    router.push({
+      name: 'SimulationRun',
+      params: { simulationId: selectedProject.value.simulation_id }
+    })
+    closeModal()
+  }
+}
+
+// 管理操作：Eliminar
+const deleteSelectedSimulation = async () => {
+  if (!selectedProject.value?.simulation_id) return
+
+  const ok = window.confirm(`确定要删除模拟 ${formatSimulationId(selectedProject.value.simulation_id)} 吗？此操作不可恢复。`)
+  if (!ok) return
+
+  try {
+    const simulationId = selectedProject.value.simulation_id
+    await deleteSimulation(simulationId)
+    projects.value = projects.value.filter(p => p.simulation_id !== simulationId)
+    closeModal()
+  } catch (error) {
+    console.error('删除模拟失败:', error)
+    window.alert('删除失败，请稍后重试。')
   }
 }
 
@@ -1318,6 +1375,62 @@ onUnmounted(() => {
 
 .modal-btn:hover:not(:disabled) .btn-text {
   color: #111827;
+}
+
+.admin-divider {
+  padding-top: 0;
+}
+
+.modal-admin-actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px 32px 8px;
+  background: #FFFFFF;
+}
+
+.admin-btn {
+  flex: 1;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background: #FFFFFF;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.admin-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.btn-review {
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.btn-review .admin-text {
+  color: #2563EB;
+}
+
+.btn-retry {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.btn-retry .admin-text {
+  color: #D97706;
+}
+
+.btn-delete {
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.btn-delete .admin-text {
+  color: #DC2626;
 }
 
 /* 不可回放提示 */
