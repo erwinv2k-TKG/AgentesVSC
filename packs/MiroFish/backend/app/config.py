@@ -31,6 +31,24 @@ class Config:
     LLM_API_KEY = os.environ.get('LLM_API_KEY')
     LLM_BASE_URL = os.environ.get('LLM_BASE_URL', 'https://api.openai.com/v1')
     LLM_MODEL_NAME = os.environ.get('LLM_MODEL_NAME', 'gpt-4o-mini')
+
+    # Soporte para múltiples API keys con rotación automática
+    # Se leen LLM_API_KEY_1, LLM_API_KEY_2, ... hasta que no haya más.
+    # Si no hay ninguna numerada, se usa LLM_API_KEY como fallback (key única).
+    @classmethod
+    def get_llm_api_keys(cls) -> list:
+        """Devuelve lista de API keys disponibles para rotación."""
+        keys = []
+        i = 1
+        while True:
+            key = os.environ.get(f'LLM_API_KEY_{i}')
+            if not key:
+                break
+            keys.append(key)
+            i += 1
+        if not keys and cls.LLM_API_KEY:
+            keys.append(cls.LLM_API_KEY)
+        return keys
     
     # Zep配置
     ZEP_API_KEY = os.environ.get('ZEP_API_KEY')
