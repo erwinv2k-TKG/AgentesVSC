@@ -53,7 +53,7 @@ def generate_report():
         if not simulation_id:
             return jsonify({
                 "success": False,
-                "error": "请提供 simulation_id"
+                "error": "Por favor proporciona simulation_id"
             }), 400
         
         force_regenerate = data.get('force_regenerate', False)
@@ -78,7 +78,7 @@ def generate_report():
                         "simulation_id": simulation_id,
                         "report_id": existing_report.report_id,
                         "status": "completed",
-                        "message": "报告已存在",
+                        "message": "El reporte ya existe",
                         "already_generated": True
                     }
                 })
@@ -95,14 +95,14 @@ def generate_report():
         if not graph_id:
             return jsonify({
                 "success": False,
-                "error": "缺少图谱ID，请确保已构建图谱"
+                "error": "Falta graph_id. Asegurate de construir el grafo primero"
             }), 400
         
         simulation_requirement = project.simulation_requirement
         if not simulation_requirement:
             return jsonify({
                 "success": False,
-                "error": "缺少模拟需求描述"
+                "error": "Falta la descripcion de simulacion"
             }), 400
         
         # 提前生成 report_id，以便立即返回给前端
@@ -127,7 +127,7 @@ def generate_report():
                     task_id,
                     status=TaskStatus.PROCESSING,
                     progress=0,
-                    message="初始化Report Agent..."
+                    message="Inicializando Report Agent..."
                 )
                 
                 # 创建Report Agent
@@ -164,7 +164,7 @@ def generate_report():
                         }
                     )
                 else:
-                    task_manager.fail_task(task_id, report.error or "报告生成失败")
+                    task_manager.fail_task(task_id, report.error or "Fallo al generar el reporte")
                 
             except Exception as e:
                 logger.error(f"报告生成失败: {str(e)}")
@@ -181,7 +181,7 @@ def generate_report():
                 "report_id": report_id,
                 "task_id": task_id,
                 "status": "generating",
-                "message": "报告生成任务已启动，请通过 /api/report/generate/status 查询进度",
+                "message": "Tarea de reporte iniciada. Consulta progreso en /api/report/generate/status",
                 "already_generated": False
             }
         })

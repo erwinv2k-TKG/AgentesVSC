@@ -198,7 +198,7 @@ def create_simulation():
         if not project_id:
             return jsonify({
                 "success": False,
-                "error": "请提供 project_id"
+                "error": "Por favor proporciona project_id"
             }), 400
         
         project = ProjectManager.get_project(project_id)
@@ -212,7 +212,7 @@ def create_simulation():
         if not graph_id:
             return jsonify({
                 "success": False,
-                "error": "项目尚未构建图谱，请先调用 /api/graph/build"
+                "error": "El proyecto aun no tiene grafo. Ejecuta /api/graph/build primero"
             }), 400
         
         manager = SimulationManager()
@@ -409,7 +409,7 @@ def prepare_simulation():
         if not simulation_id:
             return jsonify({
                 "success": False,
-                "error": "请提供 simulation_id"
+                "error": "Por favor proporciona simulation_id"
             }), 400
         
         manager = SimulationManager()
@@ -437,7 +437,7 @@ def prepare_simulation():
                     "data": {
                         "simulation_id": simulation_id,
                         "status": "ready",
-                        "message": "已有完成的准备工作，无需重复生成",
+                        "message": "La preparacion ya esta completada. No se requiere regenerar",
                         "already_prepared": True,
                         "prepare_info": prepare_info
                     }
@@ -458,7 +458,7 @@ def prepare_simulation():
         if not simulation_requirement:
             return jsonify({
                 "success": False,
-                "error": "项目缺少模拟需求描述 (simulation_requirement)"
+                "error": "El proyecto no tiene simulation_requirement"
             }), 400
         
         # 获取文档文本
@@ -613,7 +613,7 @@ def prepare_simulation():
                 "simulation_id": simulation_id,
                 "task_id": task_id,
                 "status": "preparing",
-                "message": "准备任务已启动，请通过 /api/simulation/prepare/status 查询进度",
+                "message": "Tarea de preparacion iniciada. Consulta el progreso en /api/simulation/prepare/status",
                 "already_prepared": False,
                 "expected_entities_count": state.entities_count,  # 预期的Agent总数
                 "entity_types": state.entity_types  # 实体类型列表
