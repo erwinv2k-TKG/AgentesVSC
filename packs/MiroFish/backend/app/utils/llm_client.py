@@ -6,9 +6,13 @@ LLM客户端封装
 import json
 import re
 from typing import Optional, Dict, Any, List
-from openai import OpenAI
+from openai import OpenAI, APIStatusError
 
 from ..config import Config
+from .retry import retry_with_backoff
+from .logger import get_logger
+
+logger = get_logger('mirofish.llm_client')
 
 
 class LLMClient:
@@ -32,6 +36,12 @@ class LLMClient:
             base_url=self.base_url
         )
     
+    def _is_overload_error(self, exc: Exception) -> bool:
+        """Devuelve True para errores 503/529 de sobrecapacidad del proveedor."""
+        if isinstance(exc, APIStatusError):
+            return exc.status_code in (503, 529)
+        return False
+
     def chat(
         self,
         messages: List[Dict[str, str]],
@@ -51,21 +61,33 @@ class LLMClient:
         Returns:
             模型响应文本
         """
-        kwargs = {
-            "model": self.model,
-            "messages": messages,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-        }
-        
-        if response_format:
-            kwargs["response_format"] = response_format
-        
-        response = self.client.chat.completions.create(**kwargs)
-        content = response.choices[0].message.content
-        # 部分模型（如MiniMax M2.5）会在content中包含<think>思考内容，需要移除
-        content = re.sub(r'<think>[\s\S]*?</think>', '', content).strip()
-        return content
+        @retry_with_backoff(
+            max_retries=5,
+            initial_delay=5.0,
+            max_delay=60.0,
+            backoff_factor=2.0,
+            jitter=True,
+            exceptions=(APIStatusError,),
+            on_retry=lambda exc, n: logger.warning(
+                f"Modelo sobrecargado (intento {n}), reintentando con backoff..."
+            ) if self._is_overload_error(exc) else None
+        )
+        def _do_chat():
+            kwargs = {
+                "model": self.model,
+                "messages": messages,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+            }
+            if response_format:
+                kwargs["response_format"] = response_format
+            response = self.client.chat.completions.create(**kwargs)
+            content = response.choices[0].message.content
+            # 部分模型（如MiniMax M2.5）会在content中包含<think>思考内容，需要移除
+            content = re.sub(r'<think>[\s\S]*?</think>', '', content).strip()
+            return content
+
+        return _do_chat()
     
     def chat_json(
         self,
