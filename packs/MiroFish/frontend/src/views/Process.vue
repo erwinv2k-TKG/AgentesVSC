@@ -569,8 +569,7 @@ const handleNewProject = async () => {
   const pending = getPendingUpload()
   
   if (!pending.isPending || pending.files.length === 0) {
-    error.value = '没有待上传的文件，请返回首页重新操作'
-    loading.value = false
+    router.replace({ name: 'Home' })
     return
   }
   
