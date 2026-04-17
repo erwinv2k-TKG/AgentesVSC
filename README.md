@@ -96,8 +96,20 @@ Para mantener una estrategia limpia de cambios:
 4. documentar el cambio en `packs/vscode-local-overrides/docs/CHANGELOG_LOCAL.md`
 5. validar en VS Code y, si aplica, promover luego a un pack propio
 
+## Política de preservación de copias
+
+El objetivo de este repositorio es conservar copias completas de herramientas y proyectos útiles disponibles en GitHub para que no se pierdan.
+
+Reglas que aplican a toda importación nueva:
+
+1. Importar el contenido completo de la carpeta del proyecto, sin dejar repositorios git anidados (`/.git` interno).
+2. Antes de hacer `git add`, eliminar el `.git` interno si el proyecto ya tiene uno propio.
+3. Registrar el pack en `catalog.json` con su upstream, fecha de importación y resumen de contenidos.
+4. Actualizar el listado en este README.
+5. No modificar el contenido original del autor. Si se requiere un ajuste local, crear una copia en `vscode-local-overrides`.
+
 ## Notas
 
 `AgentesVSC` es un repositorio contenedor. La compatibilidad final con cada plataforma depende de los manifests y del mecanismo de carga de esa plataforma.
 
-Las primeras importaciones hechas aqui son `superpowers` y `everything-claude-code`, y la estructura queda preparada para seguir sumando packs de agentes modificados.
+El catálogo completo y los upstream de cada copia se mantienen en `catalog.json`.

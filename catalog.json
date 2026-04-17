@@ -79,6 +79,118 @@
         "docs"
       ],
       "notes": "Contenedor local para overrides y variaciones operativas"
+    },
+    {
+      "name": "G0DM0D3",
+      "status": "vendored",
+      "source": {
+        "type": "full-copy",
+        "upstream": "https://github.com/elder-plinius/G0DM0D3",
+        "importedOn": "2026-04-17",
+        "note": "Copia completa importada como referencia y preservacion"
+      },
+      "platforms": [
+        "Browser"
+      ],
+      "contents": [
+        "index.html",
+        "src",
+        "api",
+        "docs",
+        "functions",
+        "public"
+      ],
+      "notes": "Interfaz de chat multimodelo para experimentacion y red teaming con 55+ modelos via OpenRouter. Deploy como single-file HTML."
+    },
+    {
+      "name": "incidentfox",
+      "status": "vendored",
+      "source": {
+        "type": "full-copy",
+        "upstream": "https://github.com/incidentfox/incidentfox",
+        "importedOn": "2026-04-17",
+        "note": "Copia completa importada como referencia y preservacion"
+      },
+      "platforms": [
+        "Slack",
+        "Self-hosted"
+      ],
+      "contents": [
+        "sre-agent",
+        "orchestrator",
+        "config_service",
+        "web_ui",
+        "slack-bot",
+        "docs",
+        "charts",
+        "ai_pipeline"
+      ],
+      "notes": "Plataforma AI SRE open-source para investigacion automatica de incidentes, correlacion de alertas y analisis de causa raiz."
+    },
+    {
+      "name": "ollama",
+      "status": "vendored",
+      "source": {
+        "type": "full-copy",
+        "upstream": "https://github.com/ollama/ollama",
+        "importedOn": "2026-04-17",
+        "note": "Copia completa importada como referencia y preservacion"
+      },
+      "platforms": [
+        "macOS",
+        "Windows",
+        "Linux"
+      ],
+      "contents": [
+        "cmd",
+        "server",
+        "model",
+        "ml",
+        "llm",
+        "api",
+        "docs"
+      ],
+      "notes": "Runtime para ejecutar y administrar modelos abiertos en local con CLI, API REST e integraciones con Claude Code, Codex, Copilot y otros."
+    },
+    {
+      "name": "MiroFish",
+      "status": "vendored",
+      "source": {
+        "type": "full-copy",
+        "upstream": "https://github.com/666ghj/MiroFish",
+        "importedOn": "2026-04-17",
+        "note": "Copia completa importada como referencia y preservacion"
+      },
+      "platforms": [
+        "Self-hosted"
+      ],
+      "contents": [
+        "backend",
+        "frontend",
+        "docker-compose.yml"
+      ],
+      "notes": "Motor multiagente de prediccion y simulacion colectiva. Construye mundos digitales a partir de semillas reales para generar reportes predictivos."
+    },
+    {
+      "name": "pentagi",
+      "status": "vendored",
+      "source": {
+        "type": "full-copy",
+        "upstream": "https://github.com/vxcontrol/pentagi",
+        "importedOn": "2026-04-17",
+        "note": "Copia completa importada como referencia y preservacion"
+      },
+      "platforms": [
+        "Self-hosted"
+      ],
+      "contents": [
+        "backend",
+        "frontend",
+        "examples",
+        "scripts",
+        "docker-compose.yml"
+      ],
+      "notes": "Sistema autonomo de pentesting asistido por IA con agentes especializados, 20+ herramientas de seguridad, grafo de conocimiento y despliegue self-hosted via Docker."
     }
   ]
 }
