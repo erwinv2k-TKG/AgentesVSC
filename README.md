@@ -34,11 +34,24 @@ AgentesVSC/
         └── PACK_INFO.md
 ```
 
-## Packs actuales
+## Copias de proyecto incluidas
 
-1. `superpowers`: copia base tomada desde `C:\DEV\Claude_code\superpowers`.
-2. `everything-claude-code`: copia base tomada desde `C:\DEV\Claude_code\everything-claude-code`.
-3. `vscode-local-overrides`: pack local para copias derivadas y modificaciones orientadas a VS Code.
+Actualmente el repositorio contiene las siguientes copias dentro de `packs/`, junto con un resumen de su objetivo principal:
+
+1. `everything-claude-code`: base amplia de agentes, skills, reglas, contextos y utilidades para flujos de trabajo asistidos en Claude Code y entornos compatibles con VS Code.
+2. `G0DM0D3`: interfaz abierta de chat multimodelo orientada a experimentación, red teaming e interacción avanzada con modelos vía OpenRouter.
+3. `incidentfox`: plataforma AI SRE para investigación automática de incidentes, correlación de alertas, análisis de logs y búsqueda de causa raíz.
+4. `MiroFish`: motor multiagente de predicción y simulación colectiva que crea mundos digitales para ensayar escenarios y generar reportes predictivos.
+5. `ollama`: runtime y plataforma para ejecutar, administrar e integrar modelos abiertos en local mediante CLI, API REST y conectores.
+6. `pentagi`: sistema autónomo de pentesting asistido por IA con agentes especializados, herramientas de seguridad, memoria y despliegue self-hosted.
+7. `superpowers`: pack base de agentes y skills de desarrollo asistido, útil como referencia funcional y punto de partida para personalizaciones.
+8. `vscode-local-overrides`: contenedor local para derivaciones y ajustes específicos de VS Code sin modificar directamente los packs importados.
+
+## Resumen por tipo
+
+- Packs base de agentes y automatizacion: `superpowers`, `everything-claude-code`, `vscode-local-overrides`.
+- Proyectos de asistentes, modelos o interfaces IA: `G0DM0D3`, `ollama`, `MiroFish`.
+- Proyectos orientados a operaciones y seguridad: `incidentfox`, `pentagi`.
 
 Nota de convivencia: al usar multiples packs al mismo tiempo puede haber nombres de agentes repetidos (por ejemplo `code-reviewer`). En esos casos conviene definir una prioridad por pack o crear variantes derivadas con nombres unicos.
 
